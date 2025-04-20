@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../services/productService';
-import { Product } from '../types/Product';
-import ProductCard from './ProductCard';
+import { fetchProducts } from '../../services/productService';
+import { Product } from '../../types/Product';
+import ProductCard from '../product/ProductCard';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,7 +26,7 @@ const ProductList: React.FC = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-15">
       {products.map(product => (
         <ProductCard key={product.pid} product={product} />
       ))}

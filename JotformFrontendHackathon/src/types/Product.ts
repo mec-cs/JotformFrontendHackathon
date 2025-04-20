@@ -1,4 +1,3 @@
-// connectedCategories-Products, images, options are arrays in string
 
 export interface Product {
   cid: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from '../types/Product';
+import { Product } from '../../types/Product';
 import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   let imageUrl = '';
   try {
-    const images = JSON.parse(product.images);
+    const images = JSON.parse(product.images) as string[];
     if (Array.isArray(images) && images.length > 0) {
       imageUrl = images[0];
     }
