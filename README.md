@@ -5,9 +5,9 @@ Please fill in your information after forking this repository:
 
 - **Name**: Mehmet Enes Çakır
 
-## Internal README
-
-
+## Projects README
+This project also contains an internal, technical documentation file. Please navigate to that README file to understand the project better. 
+You can find it here: [JotformFrontendHackathon/README.md](./JotformFrontendHackathon/README.md)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
