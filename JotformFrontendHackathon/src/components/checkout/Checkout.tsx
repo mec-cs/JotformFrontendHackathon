@@ -29,18 +29,15 @@ const Checkout: React.FC = () => {
         '65': form.fullName,
         '66': form.address,
       };
-
       card.forEach((item, idx) => {
         submission[`63[${idx}][id]`] = item.product.pid;
         submission[`63[${idx}][quantity]`] = item.quantity;
       });
-
       const res = await fetch(`https://api.jotform.com/form/${FORM_ID}/submissions?apiKey=${API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ submission }),
       });
-      
       const data = await res.json();
       if (!data.content) throw new Error('Order submission failed');
       clearCard();
@@ -64,6 +61,13 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
+      <button
+        className="mb-6 bg-gray-200 hover:bg-gray-300 text-amber-950 px-3 py-1 rounded transition"
+        onClick={() => navigate(-1)}
+        type="button"
+      >
+        ← Back
+      </button>
       <h2 className="text-2xl font-bold mb-4">Checkout</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

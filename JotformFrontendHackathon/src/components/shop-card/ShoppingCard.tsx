@@ -6,30 +6,33 @@ const ShoppingCard: React.FC = () => {
   const { card, removeFromCard, updateQuantity, clearCard } = useCard();
   const navigate = useNavigate();
 
-  console.log('ShoppingCard context:', card);
-  console.log('localStorage:', localStorage.getItem('shopping_card'));
-
   const total = card.reduce((sum, item) => sum + Number(item.product.price) * item.quantity, 0);
 
   if (card.length === 0) {
     return (
       <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mt-8 text-center">
-        <h2 className="text-amber-950 text-2xl font-bold mb-4">Your Card</h2>
-        <p className="text-gray-500">Your card is empty.</p>
+        <h2 className="text-2xl font-bold mb-4">Your Cart is Empty</h2>
+        <button className="mt-6 bg-amber-700 text-white px-4 py-2 rounded" onClick={() => navigate('/')}>Back to Home</button>
       </div>
     );
   }
 
   return (
     <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
-      <h2 className="text-2xl font-bold mb-4">Your Card</h2>
-      <ul>
-        {card.map(item => (
-          <li key={item.product.pid} className="flex items-center justify-between border-b py-2">
-            <div className="flex-1">
-              <div className="font-semibold">{item.product.name}</div>
-              <div className="flex items-center gap-2"><img src={JSON.parse(item.product.images)[0]} alt={item.product.name} width="75" height="75" /></div>
-              <div className="text-gray-500 text-sm">Price: {item.product.price} x</div>
+      <button
+        className="mb-6 bg-gray-200 hover:bg-gray-300 text-amber-950 px-3 py-1 rounded transition"
+        onClick={() => navigate(-1)}
+        type="button"
+      >
+        ← Back
+      </button>
+      <h2 className="text-amber-950 text-2xl font-bold mb-4">Shopping Cart</h2>
+      <ul className="divide-y divide-gray-200">
+        {card.map((item, idx) => (
+          <li key={item.product.pid} className="py-4 flex items-center justify-between">
+            <div>
+              <div className="font-semibold text-amber-950">{item.product.name}</div>
+              <div className="text-sm text-gray-500">{item.product.price} TL x {item.quantity}</div>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -37,15 +40,17 @@ const ShoppingCard: React.FC = () => {
                 onClick={() => updateQuantity(item.product.pid, Math.max(1, item.quantity - 1))}
                 disabled={item.quantity <= 1}
               >-</button>
-              <span className="text-amber-900 font-bold w-6 text-center">Item Count: {item.quantity}</span>
+              <span className="text-amber-900 font-bold w-6 text-center">{item.quantity}</span>
               <button
                 className="px-3 py-1 text-amber-800 bg-amber-500 rounded hover:bg-amber-200"
                 onClick={() => updateQuantity(item.product.pid, item.quantity + 1)}
               >+</button>
               <button
-                className="ml-2 px-4 py-2 bg-amber-500 rounded hover:bg-amber-400 text-amber-800"
+                className="ml-2 bg-red-200 text-red-700 px-2 py-1 rounded hover:bg-red-300 transition"
                 onClick={() => removeFromCard(item.product.pid)}
-              >Remove</button>
+              >
+                Remove
+              </button>
             </div>
           </li>
         ))}
@@ -54,12 +59,18 @@ const ShoppingCard: React.FC = () => {
         <span className="font-bold text-lg">Total:</span>
         <span className="font-bold text-xl text-emerald-900">{total} TL</span>
       </div>
-      <div className="flex justify-end mt-4 gap-2">
-        <button className="bg-amber-300 text-amber-800 px-4 py-2 rounded hover:bg-amber-500 mr-2" onClick={clearCard}>
-          Clear Card
+      <div className="flex gap-2 mt-6">
+        <button
+          className="bg-amber-700 text-white px-4 py-2 rounded hover:bg-amber-800 transition flex-1"
+          onClick={() => navigate('/checkout')}
+        >
+          Checkout
         </button>
-        <button className="bg-emerald-700 text-white px-4 py-2 rounded hover:bg-emerald-900" onClick={() => navigate('/checkout')}>
-          Proceed to Checkout
+        <button
+          className="bg-gray-300 text-amber-950 px-4 py-2 rounded hover:bg-gray-400 transition flex-1"
+          onClick={clearCard}
+        >
+          Clear Cart
         </button>
       </div>
     </div>

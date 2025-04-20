@@ -1,9 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProductList from './components/product/ProductList';
-import ProductDetail from './components/product/ProductDetail';
-import ShoppingCard from './components/shop-card/ShoppingCard';
-import Checkout from './components/checkout/Checkout';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
 import { CardProvider } from './context/CardContext';
 
 function App() {
@@ -21,12 +18,7 @@ function App() {
           </header>
       
           <main className="container px-4 mt-10">
-            <Routes>
-              <Route path="/" element={<ProductList />} />
-              <Route path="/product/:pid" element={<ProductDetail />} />
-              <Route path="/card" element={<ShoppingCard />} />
-              <Route path="/checkout" element={<Checkout />} />
-            </Routes>
+            <AppRoutes />
           </main>
         </div>
       </Router>
